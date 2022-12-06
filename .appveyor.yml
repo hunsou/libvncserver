@@ -82,7 +82,7 @@ after_build:
         return $text
     }
     $WorkingFolder = "$env:APPVEYOR_BUILD_FOLDER\build"    
-	  $ZipFile = "$WorkingFolder\nightly-$env:APPVEYOR_BUILD_VERSION.zip"
-	  $ReleaseFile = "$WorkingFolder\*"
-	  7z a $ZipFile $ReleaseFile
+    $ZipFile = "$WorkingFolder\nightly-$env:APPVEYOR_BUILD_VERSION.zip"
+    $ReleaseFile = "$WorkingFolder\*"
+    7z a $ZipFile $ReleaseFile
     Push-AppveyorArtifact $ZipFile
