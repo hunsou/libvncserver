@@ -1,12 +1,9 @@
 
 environment:
-  matrix:
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      DEVENV_EXE: C:\"Program Files (x86)"\"Microsoft Visual Studio 14.0"\Common7\IDE\devenv.exe
-      VSDEVCMD_BAT: C:\"Program Files (x86)"\"Microsoft Visual Studio 14.0"\Common7\Tools\VsDevCmd.bat
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      DEVENV_EXE: C:\"Program Files (x86)"\"Microsoft Visual Studio"\2017\Community\Common7\IDE\devenv.exe
-      VSDEVCMD_BAT: C:\"Program Files (x86)"\"Microsoft Visual Studio"\2017\Community\Common7\Tools\VsDevCmd.bat
+  matrix:    
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2021
+      DEVENV_EXE: C:\"Program Files (x86)"\"Microsoft Visual Studio"\2021\Community\Common7\IDE\devenv.exe
+      VSDEVCMD_BAT: C:\"Program Files (x86)"\"Microsoft Visual Studio"\2021\Community\Common7\Tools\VsDevCmd.bat
 
 install:
   - if not exist deps mkdir deps
@@ -81,8 +78,8 @@ after_build:
         $text += (Get-FileHash $file -Algorithm SHA512).Hash
         return $text
     }
-    $WorkingFolder = "$env:APPVEYOR_BUILD_FOLDER\build"    
-    $ZipFile = "$WorkingFolder\nightly-$env:APPVEYOR_BUILD_VERSION.zip"
+    $WorkingFolder = "$env:APPVEYOR_BUILD_FOLDER\build"
+    $ZipFile = "$WorkingFolder\$env:APPVEYOR_PROJECT_NAME-nightly-$env:APPVEYOR_BUILD_VERSION.zip"
     $ReleaseFile = "$WorkingFolder\*"
     7z a $ZipFile $ReleaseFile
     Push-AppveyorArtifact $ZipFile
