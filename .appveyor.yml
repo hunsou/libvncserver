@@ -95,6 +95,8 @@ after_build:
     Push-AppveyorArtifact $ZipFile
     
     $ZipFile1 = "$WorkingFolder\$env:APPVEYOR_PROJECT_NAME-CMU-nightly-$env:APPVEYOR_BUILD_VERSION.zip"
-    $ReleaseFile1 = "C:\CMU\*"
+    $ReleaseFile1 = "C:\CMU\*"    
     7z a $ZipFile1 $ReleaseFile1
+    $ReleaseFile1 = "c:\OpenSSL-Win32\*"
+    7z a $ZipFile1 $ReleaseFile1    
     Push-AppveyorArtifact $ZipFile1
