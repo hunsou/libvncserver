@@ -1,9 +1,9 @@
 
 environment:
   matrix:    
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
-      DEVENV_EXE: ${env:ProgramFiles(x86)}\"Microsoft Visual Studio"\2019\Community\Common7\IDE\devenv.exe
-      VSDEVCMD_BAT: ${env:ProgramFiles(x86)}\"Microsoft Visual Studio"\2019\Community\Common7\Tools\VsDevCmd.bat
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      DEVENV_EXE: ${env:ProgramFiles(x86)}\"Microsoft Visual Studio"\2017\Community\Common7\IDE\devenv.exe
+      VSDEVCMD_BAT: ${env:ProgramFiles(x86)}\"Microsoft Visual Studio"\2017\Community\Common7\Tools\VsDevCmd.bat
 
 install:
   - if not exist deps mkdir deps
