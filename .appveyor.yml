@@ -65,4 +65,24 @@ build_script:
   - cmake --build .
   - ctest -C Debug --output-on-failure
 
-
+after_build:
+  ps: |
+    function CalculateHash($file)
+    {
+        $newLine = "`r`n"
+        $text = (Split-Path $file -Leaf) + $newLine
+        $text += 'MD5' + $newLine
+        $text += (Get-FileHash $file -Algorithm MD5).Hash + $newLine
+        $text += 'SHA-1' + $newLine
+        $text += (Get-FileHash $file -Algorithm SHA1).Hash + $newLine
+        $text += 'SHA-256' + $newLine
+        $text += (Get-FileHash $file -Algorithm SHA256).Hash + $newLine
+        $text += 'SHA-512' + $newLine
+        $text += (Get-FileHash $file -Algorithm SHA512).Hash
+        return $text
+    }
+    $WorkingFolder = "$env:APPVEYOR_BUILD_FOLDER\build"    
+	  $ZipFile = "$WorkingFolder\nightly-$env:APPVEYOR_BUILD_VERSION.zip"
+	  $ReleaseFile = "$WorkingFolder\*"
+	  7z a $ZipFile $ReleaseFile
+    Push-AppveyorArtifact $ZipFile
